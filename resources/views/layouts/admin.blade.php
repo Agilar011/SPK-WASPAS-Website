@@ -287,7 +287,7 @@
                             <a href="/presensi" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
-                                    Presensi
+                                    Hitung Score
                                 </p>
                             </a>
                         </li>

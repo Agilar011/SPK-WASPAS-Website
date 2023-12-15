@@ -7,6 +7,8 @@ use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\student;
+use App\Models\Criteria;
 
 class ActivityController extends Controller
 {
@@ -74,6 +76,8 @@ class ActivityController extends Controller
 
     public function checkIn(Request $request)
     {
+        $jumlahSiswa = student::count();
+
         $inputText = $request->input('deskripsi');
         $inputTime = $request->jamCheckIn;
         $lines = explode(PHP_EOL, $inputText);
@@ -154,15 +158,14 @@ class ActivityController extends Controller
 
     public function showActivity()
     {
-        $activityUser = Activity::where('id_user', auth()->user()->id)->get();
-        $activities = Activity::all();
-        return view('ui.aktivitas', compact('activityUser', 'activities'));
+        $Criterias = criteria::all();
+        return view('ui.aktivitas', compact('Criterias'));
     }
 
     public function showUser()
     {
-        $user = User::all();
-        return view('ui.users', compact('user'));
+        $students = student::all();
+        return view('ui.users', compact('students'));
     }
 }
 

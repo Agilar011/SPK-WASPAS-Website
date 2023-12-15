@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CriteriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/updateUser/{id}', [UserController::class, 'updateUser'])->name('updateUser');
         Route::post('/storeUpdateUser/{id}', [UserController::class, 'storeUpdateUser'])->name('storeUpdateUser');
         Route::get('/users', [ActivityController::class, 'showUser'])->name('showUser')->middleware('hakAkses:admin');
-
+        Route::get('/hitung-nilai-terbaik', [CriteriaController::class, 'getMinAndMaxValue'])->name('hitung.nilai.terbaik');
     });
 });
+

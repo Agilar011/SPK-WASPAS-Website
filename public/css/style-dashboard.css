@@ -29,6 +29,16 @@
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
+.content .btn-check .check-out{
+    background-color: #a82909;
+    color: white;
+    width: 10%;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
 .content .btn-check .check-in:hover {
     background-color: #1ea809ae;
     color: #fff;

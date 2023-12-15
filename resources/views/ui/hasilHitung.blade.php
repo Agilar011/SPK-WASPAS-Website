@@ -26,19 +26,17 @@
             $jumlahCategory = DB::table('criterias')->count();
         @endphp
         <section class="content px-5" id="checkInSection">
-            <h4>Jumlah Siswa :{{ $jumlahSiswa }}</h4>
-            <h4>Jumlah Kriteria :{{ $jumlahCategory }}</h4>
+            <h4>Siswa Terbaik   :{{ $finalvaluename }}</h4>
+            <h4>Score           :{{ $finalvalue }}</h4>
 
 
             <div class="btn-check">
-                <a href="/hitung-nilai-terbaik"> <button class="check-in" >Hitung</button>
+
+                <a href="/presensi"> <button class="check-out" >Kembali</button>
                 </a>
-                
             </div>
 
-
         </section>
-
 
 
 

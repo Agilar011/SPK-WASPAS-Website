@@ -43,56 +43,39 @@
                         <th scope="col">C8</th>
                         <th scope="col">C9</th>
                         <th scope="col">C10</th>
-                        <th scope="col">Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user as $user)
+                    @foreach ($students as $student)
                         <tr>
-                            <td scope="row">{{ $user->name }}</td>
+                            <td scope="row">{{ $student->code }}</td>
                             <td>
-                                {{ $user->alamat }}
+                                {{ $student->NISN }}
                             </td>
                             <td>
-                                {{ $user->no_telp }}
+                                {{ $student->name }}
                             </td>
                             <td>
-                                Admin Purchasing
+                                {{ $student->gender }}
                             </td>
                             <td>
-                                {{ $user->role }}
+                                {{ $student->birthplace_and_date }}
                             </td>
                             <td>
-                                {{ $user->tanggal_daftar }}
+                                {{ $student->Umur_Tahun }}
 
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style="display: grid; align-items:center; justify-content:start; gap:2px;">
+                            <td>{{ $student->Afirmasi_Perpindahan_Orang_Tua }}</td>
+                            <td>{{ $student->Potensi_Kecerdasan }}</td>
+                            <td>{{ $student->Penghasilan_Orang_Tua_Rupiah }}</td>
+                            <td>{{ $student->Kemampuan_Komunikasi }}</td>
+                            <td>{{ $student->Ketaatan_Beragama }}</td>
+                            <td>{{ $student->Prestasi }}</td>
+                            <td>{{ $student->Kedisiplinan }}</td>
+                            <td>{{ $student->Kepedulian }}</td>
+                            <td>{{ $student->Jarak }}</td>
 
-                                <form method="POST" action="{{ route('changeRole', $user->id) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success">Ubah Peran</button>
-                                </form>
-
-                                <form method="POST" action="{{ route('updateUser', $user->id) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </form>
-
-                                <form method="POST" action="{{ route('deleteUser', $user->id) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
-                            </td>
                         </tr>
                     @endforeach
 
