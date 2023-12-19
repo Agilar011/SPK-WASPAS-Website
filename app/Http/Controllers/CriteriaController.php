@@ -81,6 +81,7 @@ class CriteriaController extends Controller
         // $value_4 = $value[0];
         // var_dump($value_4);
         $dataStudents=[];
+        $i=0;
 
         $students = student::all();
         foreach ($students as $student) {
@@ -157,6 +158,21 @@ class CriteriaController extends Controller
             }
             $tempValue = 0.5 * (($C1_value * $C1->weight) + ($C2_value * $C2_criteria->weight) + ($C3_value * $C3_criteria->weight) + ($C4_value * $C4_criteria->weight) + ($C5_value * $C5_criteria->weight) + ($C6_value * $C6_criteria->weight) + ($C7_value * $C7_criteria->weight) + ($C8_value * $C8_criteria->weight) + ($C9_value * $C9_criteria->weight) + ($C10_value * $C10_criteria->weight));
 
+            $dataStudents[$i][0]= $C1_value * $C1->weight;
+            $dataStudents[$i][1]= $C2_value * $C2_criteria->weight;
+            $dataStudents[$i][2]= $C3_value * $C3_criteria->weight;
+            $dataStudents[$i][3]= $C4_value * $C4_criteria->weight;
+            $dataStudents[$i][4]= $C5_value * $C5_criteria->weight;
+            $dataStudents[$i][5]= $C6_value * $C6_criteria->weight;
+            $dataStudents[$i][6]= $C7_value * $C7_criteria->weight;
+            $dataStudents[$i][7]= $C8_value * $C8_criteria->weight;
+            $dataStudents[$i][8]= $C9_value * $C9_criteria->weight;
+            $dataStudents[$i][9]= $C10_value * $C10_criteria->weight;
+            $dataStudents[$i][10]= $tempValue;
+
+            $i++;
+
+
             if ($finalvalue < $tempValue) {
                 $finalvalue = $tempValue;
                 $finalvaluename = $student_name;
@@ -168,7 +184,7 @@ class CriteriaController extends Controller
 
         // var_dump('Nilai terbaik = ' . $finalvalue . ' dan diraih oleh ' . $finalvaluename);
 
-        return view('ui.hasilHitung', compact('finalvalue','finalvaluename', 'criteriaName', 'criteriaMaxMinValue'));
+        return view('ui.hasilHitung', compact('finalvalue','finalvaluename', 'criteriaName', 'criteriaMaxMinValue', 'dataStudents'));
 
     }
 }

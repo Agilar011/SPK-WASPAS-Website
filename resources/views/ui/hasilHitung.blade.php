@@ -37,6 +37,9 @@
             </div>
 
             <h3 class="m-0" style="color: #000;">Tabel Max And Min Value</h3>
+            <h3 class="m-0" style="color: #000;">Mencari nilai tertinggi dan terendah dari setiap kriteria yang dimiiki oleh alternatif</h3>
+
+
             <table class="table table-hover">
                 <thead>
 
@@ -70,6 +73,42 @@
                         </tr>
 
 
+                    </ul>
+
+
+
+                </tbody>
+            </table>
+            <h3 class="m-0" style="color: #000;">Tabel Hasil Normalisasi</h3>
+            <h3 class="m-0" style="color: #000;">Menghitung nilai setiap alternatif yang dinormalisasikan dengan cara dibagi atau dikali dengan bobot kriteria</h3>
+
+            <table class="table table-hover">
+                <thead>
+
+                    <tr class="table-success">
+                        <th scope="col"> </th>
+
+                        @for ($i = 0; $i < count($criteriaName); $i++)
+                            <th scope="col">{{ $criteriaName[$i] }}</th>
+                        @endfor
+                        {{-- <th scope="col">Action</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Memeriksa apakah pengguna memiliki peran 'admin' -->
+                    <!-- Tampilkan konten khusus untuk pengguna dengan peran 'admin' -->
+                    <ul>
+                        <tr>
+                            @foreach($dataStudents as $index => $data)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                @foreach($data as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+
+                        </tr>
                     </ul>
 
 
