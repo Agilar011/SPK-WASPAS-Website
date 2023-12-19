@@ -37,7 +37,8 @@
             </div>
 
             <h3 class="m-0" style="color: #000;">Tabel Max And Min Value</h3>
-            <h3 class="m-0" style="color: #000;">Mencari nilai tertinggi dan terendah dari setiap kriteria yang dimiiki oleh alternatif</h3>
+            <h6 class="m-0" style="color: #000;">Mencari nilai tertinggi dan terendah dari setiap kriteria yang dimiiki
+                oleh alternatif</h6>
 
 
             <table class="table table-hover">
@@ -59,7 +60,7 @@
                         <tr>
                             <td>Max</td>
                             @foreach ($criteriaMaxMinValue as $criteria)
-                            <td>{{ $criteria['max'] }}</td>
+                                <td>{{ $criteria['max'] }}</td>
                             @endforeach
 
                         </tr>
@@ -67,7 +68,7 @@
                             <td>Min</td>
 
                             @foreach ($criteriaMaxMinValue as $criteria)
-                            <td>{{ $criteria['min'] }}</td>
+                                <td>{{ $criteria['min'] }}</td>
                             @endforeach
 
                         </tr>
@@ -80,13 +81,14 @@
                 </tbody>
             </table>
             <h3 class="m-0" style="color: #000;">Tabel Hasil Normalisasi</h3>
-            <h3 class="m-0" style="color: #000;">Menghitung nilai setiap alternatif yang dinormalisasikan dengan cara dibagi atau dikali dengan bobot kriteria</h3>
+            <h6 class="m-0" style="color: #000;">Menghitung nilai setiap alternatif yang dinormalisasikan dengan cara
+                dibagi atau dikali dengan bobot kriteria</h6>
 
             <table class="table table-hover">
                 <thead>
 
                     <tr class="table-success">
-                        <th scope="col"> </th>
+                        <th scope="col">link</th>
 
                         @for ($i = 0; $i < count($criteriaName); $i++)
                             <th scope="col">{{ $criteriaName[$i] }}</th>
@@ -99,20 +101,48 @@
                     <!-- Tampilkan konten khusus untuk pengguna dengan peran 'admin' -->
                     <ul>
                         <tr>
-                            @foreach($dataStudents as $index => $data)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                @foreach($data as $value)
-                                    <td>{{ $value }}</td>
-                                @endforeach
-                            </tr>
+                            @foreach ($dataStudents as $index => $data)
+                                @if ($index < count($dataStudents) - 1)
+                                    <!-- Mengecek apakah itu bukan indeks terakhir -->
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            @foreach ($data as $value)
+                                <td>{{ $value }}</td>
+                            @endforeach
+                        </tr>
+                        @endif
                         @endforeach
 
                         </tr>
                     </ul>
+                </tbody>
+            </table>
 
+            <h3 class="m-0" style="color: #000;">Tabel Hasil Akhir</h3>
+            <h6 class="m-0" style="color: #000;">Menampilkan hasil akhir dari setiap alternatif</h6>
 
-
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-success">
+                        <th style="width: 10%;">Nomer</th>
+                        <th style="width: 30%;">Nama Alternatif</th>
+                        <th style="width: 60%;">Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i=1;
+                    @endphp
+                    @foreach($dataFinalOutput as $data)
+                    <tr>
+                        <td>{{ $i}}</td>
+                        <td>{{ $data[0] }}</td>
+                        <td>{{ $data[1] }}</td>
+                    </tr>
+                    @php
+                        $i++;
+                    @endphp
+                    @endforeach
                 </tbody>
             </table>
 

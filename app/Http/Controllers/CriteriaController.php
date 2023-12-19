@@ -81,14 +81,16 @@ class CriteriaController extends Controller
         // $value_4 = $value[0];
         // var_dump($value_4);
         $dataStudents=[];
+        $dataFinalOutput = [];
         $i=0;
 
         $students = student::all();
         foreach ($students as $student) {
             $student_name = $student->name;
 
-            $C1 = Criteria::where('name', '=', $value[0])->first();
-            if ($C1 && $C1->category == 'Benefit') {
+            $C1_criteria = Criteria::where('name', '=', $value[0])->first();
+
+            if ($C1_criteria->category == 'Benefit') {
                 $C1_value = $student->Umur_Tahun / array_values($maxMinValues)[0]['max'];
             } else {
                 $C1_value = array_values($maxMinValues)[0]['min'] / $student->Umur_Tahun;
@@ -156,19 +158,36 @@ class CriteriaController extends Controller
             } else {
                 $C10_value = $student->Jarak / array_values($maxMinValues)[9]['max'];
             }
-            $tempValue = 0.5 * (($C1_value * $C1->weight) + ($C2_value * $C2_criteria->weight) + ($C3_value * $C3_criteria->weight) + ($C4_value * $C4_criteria->weight) + ($C5_value * $C5_criteria->weight) + ($C6_value * $C6_criteria->weight) + ($C7_value * $C7_criteria->weight) + ($C8_value * $C8_criteria->weight) + ($C9_value * $C9_criteria->weight) + ($C10_value * $C10_criteria->weight));
 
-            $dataStudents[$i][0]= $C1_value * $C1->weight;
-            $dataStudents[$i][1]= $C2_value * $C2_criteria->weight;
-            $dataStudents[$i][2]= $C3_value * $C3_criteria->weight;
-            $dataStudents[$i][3]= $C4_value * $C4_criteria->weight;
-            $dataStudents[$i][4]= $C5_value * $C5_criteria->weight;
-            $dataStudents[$i][5]= $C6_value * $C6_criteria->weight;
-            $dataStudents[$i][6]= $C7_value * $C7_criteria->weight;
-            $dataStudents[$i][7]= $C8_value * $C8_criteria->weight;
-            $dataStudents[$i][8]= $C9_value * $C9_criteria->weight;
-            $dataStudents[$i][9]= $C10_value * $C10_criteria->weight;
-            $dataStudents[$i][10]= $tempValue;
+
+
+            $tempOperand1 =pow($C1_value, $C1_criteria->weight);
+            $tempOperand2 =pow($C2_value, $C2_criteria->weight);
+            $tempOperand3 =pow($C3_value, $C3_criteria->weight);
+            $tempOperand4 =pow($C4_value, $C4_criteria->weight);
+            $tempOperand5 =pow($C5_value, $C5_criteria->weight);
+            $tempOperand6 =pow($C6_value, $C6_criteria->weight);
+            $tempOperand7 =pow($C7_value, $C7_criteria->weight);
+            $tempOperand8 =pow($C8_value, $C8_criteria->weight);
+            $tempOperand9 =pow($C9_value, $C9_criteria->weight);
+            $tempOperand10 =pow($C10_value, $C10_criteria->weight);
+            $tempValue = 0.5 * (($C1_value * $C1_criteria->weight) + ($C2_value * $C2_criteria->weight) + ($C3_value * $C3_criteria->weight) + ($C4_value * $C4_criteria->weight) + ($C5_value * $C5_criteria->weight) + ($C6_value * $C6_criteria->weight) + ($C7_value * $C7_criteria->weight) + ($C8_value * $C8_criteria->weight) + ($C9_value * $C9_criteria->weight) + ($C10_value * $C10_criteria->weight))
+                                + 0.5 * ($tempOperand1 * $tempOperand2 * $tempOperand3 * $tempOperand4 * $tempOperand5 * $tempOperand6 * $tempOperand7 * $tempOperand8 * $tempOperand9 * $tempOperand10);
+
+
+            $dataStudents[$i][0]= $C1_value ;
+            $dataStudents[$i][1]= $C2_value ;
+            $dataStudents[$i][2]= $C3_value ;
+            $dataStudents[$i][3]= $C4_value ;
+            $dataStudents[$i][4]= $C5_value ;
+            $dataStudents[$i][5]= $C6_value ;
+            $dataStudents[$i][6]= $C7_value ;
+            $dataStudents[$i][7]= $C8_value ;
+            $dataStudents[$i][8]= $C9_value ;
+            $dataStudents[$i][9]= $C10_value;
+
+            $dataFinalOutput[$i][0] = $student->name;
+            $dataFinalOutput[$i][1] = $tempValue;
 
             $i++;
 
@@ -181,10 +200,14 @@ class CriteriaController extends Controller
             }
 
         }
+        // Urutkan array berdasarkan kolom kedua secara ascending
+        usort($dataFinalOutput, function($a, $b) {
+            return $b[1] <=> $a[1];
+        });
 
-        // var_dump('Nilai terbaik = ' . $finalvalue . ' dan diraih oleh ' . $finalvaluename);
 
-        return view('ui.hasilHitung', compact('finalvalue','finalvaluename', 'criteriaName', 'criteriaMaxMinValue', 'dataStudents'));
+
+        return view('ui.hasilHitung', compact('finalvalue','finalvaluename', 'criteriaName', 'criteriaMaxMinValue', 'dataStudents', 'dataFinalOutput'));
 
     }
 }
