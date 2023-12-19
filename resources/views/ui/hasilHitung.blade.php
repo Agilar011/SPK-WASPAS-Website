@@ -26,15 +26,56 @@
             $jumlahCategory = DB::table('criterias')->count();
         @endphp
         <section class="content px-5" id="checkInSection">
-            <h4>Siswa Terbaik   :{{ $finalvaluename }}</h4>
-            <h4>Score           :{{ $finalvalue }}</h4>
+            <h4>Siswa Terbaik :{{ $finalvaluename }}</h4>
+            <h4>Score :{{ $finalvalue }}</h4>
 
 
             <div class="btn-check">
 
-                <a href="/presensi"> <button class="check-out" >Kembali</button>
+                <a href="/presensi"> <button class="check-out">Kembali</button>
                 </a>
             </div>
+
+            <h3 class="m-0" style="color: #000;">Tabel Max And Min Value</h3>
+            <table class="table table-hover">
+                <thead>
+
+                    <tr class="table-success">
+                        <th scope="col"> </th>
+
+                        @for ($i = 0; $i < count($criteriaName); $i++)
+                            <th scope="col">{{ $criteriaName[$i] }}</th>
+                        @endfor
+                        {{-- <th scope="col">Action</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Memeriksa apakah pengguna memiliki peran 'admin' -->
+                    <!-- Tampilkan konten khusus untuk pengguna dengan peran 'admin' -->
+                    <ul>
+                        <tr>
+                            <td>Max</td>
+                            @foreach ($criteriaMaxMinValue as $criteria)
+                            <td>{{ $criteria['max'] }}</td>
+                            @endforeach
+
+                        </tr>
+                        <tr>
+                            <td>Min</td>
+
+                            @foreach ($criteriaMaxMinValue as $criteria)
+                            <td>{{ $criteria['min'] }}</td>
+                            @endforeach
+
+                        </tr>
+
+
+                    </ul>
+
+
+
+                </tbody>
+            </table>
 
         </section>
 

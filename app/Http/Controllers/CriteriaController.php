@@ -21,6 +21,7 @@ class CriteriaController extends Controller
         $finalvalue=0;
         $finalvaluename=0;
 
+
         // Kolom Umur_Tahun
         $maxMinValues['Umur_Tahun']['max'] = student::orderBy('Umur_Tahun', 'desc')->first()['Umur_Tahun'];
         $maxMinValues['Umur_Tahun']['min'] = student::orderBy('Umur_Tahun', 'asc')->first()['Umur_Tahun'];
@@ -60,6 +61,14 @@ class CriteriaController extends Controller
         // Kolom Jarak
         $maxMinValues['Jarak']['max'] = student::orderBy('Jarak', 'desc')->first()['Jarak'];
         $maxMinValues['Jarak']['min'] = student::orderBy('Jarak', 'asc')->first()['Jarak'];
+
+        $criteriaName = array_keys($maxMinValues);
+        $criteriaMaxMinValue = array_values($maxMinValues);
+
+
+        // dd($maxMinValues);
+
+
         // $valuesAtIndexOne = array_values($maxMinValues)[1]['max'];
 
         // var_dump($valuesAtIndexOne);
@@ -68,8 +77,10 @@ class CriteriaController extends Controller
         // // var_dump($value_4);
 
         $value = array_keys($maxMinValues);
+        // dd($value);
         // $value_4 = $value[0];
         // var_dump($value_4);
+        $dataStudents=[];
 
         $students = student::all();
         foreach ($students as $student) {
@@ -157,7 +168,7 @@ class CriteriaController extends Controller
 
         // var_dump('Nilai terbaik = ' . $finalvalue . ' dan diraih oleh ' . $finalvaluename);
 
-        return view('ui.hasilHitung', compact('finalvalue','finalvaluename'));
+        return view('ui.hasilHitung', compact('finalvalue','finalvaluename', 'criteriaName', 'criteriaMaxMinValue'));
 
     }
 }
